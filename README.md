@@ -1,2 +1,2 @@
-# SprintPlanning
-This is the first day of working together. We focused on planning the sprints
+# Home Repository
+This is where all of our code and ideas will be found
