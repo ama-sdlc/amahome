@@ -1,0 +1,260 @@
+<html>
+<body>
+    
+    <canvas id="myCanvas" width="1400" height="750"
+style="border:1px solid orange">
+    </canvas>
+
+
+
+<h3>Move the arrow keys to start the game!</h3>
+    <h2>Welcome to ama.io !</h2>
+    
+    <body>
+
+<p id="demo"></p>
+
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date("Jan 5, 2021 15:37:25").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get todays date and time
+  var now = new Date().getTime();
+    
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+    
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+  // Output the result in an element with id="demo"
+  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+    
+  // If the count down is over, write some text 
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
+
+</body>
+    
+   <script>
+
+
+
+// Set some global variables
+var canvas;
+var ctx;
+var dx = 20;
+var dy = 20;
+var x = 100;
+var y = 300;
+var a = Math.floor((Math.random() * 1400) + 1);
+var b = Math.floor((Math.random() * 750) + 1);
+var da = 1;
+var db= 1;
+var WIDTH = 1500;
+var HEIGHT = 800;
+       
+
+ /*      window.onload = function() {
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    var img = document.getElementById("image");
+    ctx.drawImage(img, 0, 0);
+} */
+       
+
+function circle(a,b ,r) {
+	ctx.beginPath();
+	ctx.arc(a, b, 40, 0, Math.PI*2, true);
+	ctx.fill();
+}
+
+       
+function rect(x,y,w,h) {
+
+	ctx.beginPath();
+	ctx.rect(x,y,w,h);
+	ctx.closePath();
+    
+//ct.fill();
+	ctx.stroke();
+
+}
+       
+
+function clear() {
+	ctx.clearRect(0, 0, WIDTH, HEIGHT);
+}
+
+// Important starting function
+function init() {
+	canvas = document.getElementById("myCanvas");
+	ctx = canvas.getContext("2d");
+    
+	return setInterval(draw, 150); // this is key, tells draw function to fire 10x per second
+}
+       
+       
+
+function doKeyDown(evt){
+	switch (evt.keyCode) {
+		case 38:  /* Up arrow was pressed */
+            
+			if (y - dy > -20){
+				y -= dy;
+			}
+			break;
+		case 40:  /* Down arrow was pressed */
+			if (y + dy + 80< HEIGHT){
+				y += dy;
+			}
+			break;
+		case 37:  /* Left arrow was pressed */
+			if (x - dx > -20){
+				x -= dx;
+			}
+			break;
+		case 39:  /* Right arrow was pressed */
+			if (x + dx + 50 < WIDTH){
+				x += dx;
+			}
+			break;
+            
+            case 87:  /* Up arrow was pressed */
+            
+			if (b - db > -20){
+				b -= db;
+			}
+			break;
+		case 83:  /* Down arrow was pressed */
+			if (b + db + 80< HEIGHT){
+				b += db;
+			}
+			break;
+		case 65:  /* Left arrow was pressed */
+			if (a - da > -20){
+				a -= da;
+			}
+			break;
+		case 68:  /* Right arrow was pressed */
+			if (a + da + 50 < WIDTH){
+				a += da;
+			}
+			break;
+		}
+}
+       
+       
+
+       function draw() {
+	clear();
+	ctx.strokeStyle = "orange";
+	rect(0,0,WIDTH,HEIGHT);
+//	ctx.fillStyle = "green";
+	circle(a, b, 100);
+     var img = new Image;
+           
+       img.onload = function(){
+        ctx.drawImage(img,x,y);
+       };
+       img.src="emoji.png";   
+}  
+       
+      
+
+      
+
+// Main part of program
+init();
+window.addEventListener('keydown',doKeyDown,true);
+       
+     
+
+
+</script> 
+
+</body>
+
+        <style>
+    
+        
+
+              h3{   
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  font-size: 2.9vw;
+  font-weight: 900;
+  text-decoration: none;
+  color: white;
+  display: inline-block;
+    position: absolute;
+        top: 0px;
+    left: 10px;
+  background-size: 120% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+  -ms-background-clip: text;
+  -ms-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  background-image: linear-gradient(45deg, 
+                    #c6ffdd, 
+                    #fbd786,
+                    #f7797d,
+                    #FFF800);
+        }
+              h2{   
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  font-size: 2.9vw;
+  font-weight: 900;
+  text-decoration: none;
+  color: white;
+  display: inline-block;
+    position: absolute;
+        top: -30px;
+    left: 10px;
+  background-size: 120% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+  -ms-background-clip: text;
+  -ms-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  background-image: linear-gradient(45deg, 
+                    #c6ffdd, 
+                    #fbd786,
+                    #f7797d,
+                    #FFF800);
+        }
+            p {
+  text-align: center;
+  font-size: 60px;
+               position: absolute;
+        top: -50px;
+    left: 1000px;
+}
+               
+    
+    </style>
+
+
+<iframe src="btsletgo.mp3" allow="autoplay" style="display:none" id="iframeAudio" >
+    </iframe> 
+</html>
+
