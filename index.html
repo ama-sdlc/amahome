@@ -2,28 +2,39 @@
 <html>
 <head>
 <style>
-body{ margin:10px; background:#CCC; }
-#my_canvas{ background:#FFF; border:#000 1px solid; }
+body{ margin:10px; background:linear-gradient(90deg, #009FFF , #ec2F4B ); }
+#my_canvas{ background:rgba(0, 0, 0, 0.3); border:linear-gradient(90deg, #ec2F4B , #009FFF ) 1px solid; }
+    
+    
 </style>
 <script>
 function initCanvas(){
     var ctx = document.getElementById('my_canvas').getContext('2d');
     var cW = ctx.canvas.width, cH = ctx.canvas.height;
-    var enemies = [ {"id":"enemy1","x":100,"y":-20,"w":40,"h":20},
+    var enemies = [ {"id":"enemy1","x":100,"y":-46,"w":40,"h":20},
                     {"id":"enemy2","x":225,"y":-20,"w":40,"h":20},
-                    {"id":"enemy3","x":350,"y":-20,"w":40,"h":20},
-                    {"id":"enemy4","x":100,"y":-70,"w":40,"h":20},
-                    {"id":"enemy5","x":225,"y":-70,"w":40,"h":20},
-                    {"id":"enemy6","x":350,"y":-70,"w":40,"h":20}
+                    {"id":"enemy3","x":350,"y":-67,"w":40,"h":20},
+                    {"id":"enemy4","x":100,"y":-90,"w":40,"h":20},
+                    {"id":"enemy5","x":225,"y":-23,"w":40,"h":20},
+                    {"id":"enemy6","x":350,"y":-70,"w":40,"h":20},
+                    {"id":"enemy7","x":475,"y":-50,"w":40,"h":20},
+                    {"id":"enemy8","x":600,"y":-20,"w":40,"h":20},
+                    {"id":"enemy9","x":725,"y":-90,"w":40,"h":20},
+                    {"id":"enemy10","x":850,"y":-30,"w":40,"h":20},
+                    {"id":"enemy11","x":975,"y":-90,"w":40,"h":20},
+                    {"id":"enemy12","x":1100,"y":-140,"w":40,"h":20},
     ];
     function renderEnemies(){
         for(var i = 0; i < enemies.length; i++){
             ctx.fillStyle = "blue";
             ctx.fillRect(enemies[i].x, enemies[i].y+=.5, enemies[i].w, enemies[i].h);
+               if(enemies.y <= 100){ // If a missile goes past the canvas boundaries, remove it
+                    document.getElementById('status').innerHTML = "Ducks "+ en + " enemies left"; // Splice that missile out of the missiles array
+                }
         }
     }
     function Launcher(){
-        this.y = 280, this.x = cW*.5-25, this.w = 50, this.h = 50, this.dir, this.bg="orange", this.missiles = [];
+        this.y = 430, this.x = cW*.5-25, this.w = 50, this.h = 50, this.dir, this.bg="pink", this.missiles = [];
         this.render = function(){
             if(this.dir == 'left'){
                 this.x-=5;
@@ -52,9 +63,11 @@ function initCanvas(){
             for(var i = 0; i < enemies.length; i++){
                 var e = enemies[i];
                 if(m.x+m.w >= e.x && m.x <= e.x+e.w && m.y >= e.y && m.y <= e.y+e.h){
+                    
                     this.missiles.splice(this.missiles[mi],1); // Remove the missile
                     enemies.splice(i,1); // Remove the enemy that the missile hit
-                    document.getElementById('status').innerHTML = "You destroyed "+ e.id;
+               //     for(var en = 0; en < enemies.length; en++);
+                    document.getElementById('status').innerHTML = "You've eliminated " + (12-enemies.length);//e.id;
                 }
             }
         }
@@ -103,13 +116,89 @@ window.addEventListener('load', function(event) {
 </body>  
     
     <style>
+          @font-face {
+    font-family: 'Bebas'; /*a name to be used later*/
+    src: url('BebasBold.otf'); /*URL to font*/
+}
         #left_btn {
-            position: absolute;
-            top: 100px;
-            left: 100px;
+            background-image: linear-gradient(45deg, 
+                    #c6ffdd, 
+                    #fbd786,
+                    #f7797d,
+                    #FFF800);
+  border: none;
+    font-family: 'Bebas';
+  color: purple;
+    
+    border-radius: 25%;
+  padding: 80px 50px;
+  text-align: center;
+  font-size: 40px;
+  cursor: pointer;
+       position:absolute;
+    transition: .5s ease;
+    top: 550px;
+    left: 60px;
+        }
+        #right_btn {
+            background-image: linear-gradient(45deg, 
+                    #c6ffdd, 
+                    #fbd786,
+                    #f7797d,
+                    #FFF800);
+  border: none;
+    font-family: 'Bebas';
+  color: purple;
+    
+    border-radius: 25%;
+  padding: 80px 50px;
+  text-align: center;
+  font-size: 40px;
+  cursor: pointer;
+       position:absolute;
+    transition: .5s ease;
+    top: 550px;
+    left: 1150px;
+        }
+        #fire_btn {
+            background-image: linear-gradient(45deg, 
+                    #12c2e9, 
+                    #c471ed,
+                #f64f59
+);
+  border: none;
+    font-family: 'Bebas';
+  color: purple;
+    
+    border-radius: 25%;
+  padding: 80px 90px;
+  text-align: center;
+  font-size: 40px;
+  cursor: pointer;
+       position:absolute;
+    transition: .5s ease;
+    top: 550px;
+    left: 540px;
+        }
+        h3{
+
+  border: none;
+    font-family: 'Bebas';
+  color: orange;
+    
+    border-radius: 25%;
+  padding: 80px 50px;
+  text-align: center;
+  font-size: 40px;
+  cursor: pointer;
+       position:absolute;
+    transition: .5s ease;
+    top: -100px;
+    left: 500px;
+            
         }
     </style>
     
-    <iframe src="audio.mp3" allow="autoplay" style="display:none" id="iframeAudio" >
+       <iframe src="audio.mp3" allow="autoplay" style="display:none" id="iframeAudio" >
     </iframe> 
 </html>
